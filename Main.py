@@ -1,3 +1,15 @@
+#################################################################################################################################
+#                                                          Plan du programme                                                    #
+#       -Creation de trois type d'objet, Plateau, Joueur, Bateau                                                                #
+#       -Le plateau dois etre personalisable en taille (avec une taille mini)                                                   #
+#       -Les Bateaux sont au nombre de 4 (1x2, 1x3, 1x4, 1x5                                                                    #
+#       -Le joueur peux recommencer, abandonner, sauvegarde la partie                                                           #
+#       -Fonction multijoueur                                                                                                   #
+#       -Fonction VS IA                                                                                                         #
+#       -Interface graphique                                                                                                    #
+#################################################################################################################################
+
+
 from random import randint
 
 plateau = []
