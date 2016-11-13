@@ -37,8 +37,8 @@ bateau_y = alea_col(plateau)
 #print bateau_y 
 
 for tour in range(4):
-    tir_x = int(raw_input("Quelle ligne ?"))
-    tir_y = int(raw_input("Quelle colonne ?"))
+    tir_x = int(input("Quelle ligne ?"))
+    tir_y = int(input("Quelle colonne ?"))
 
     if tir_x == bateau_x and tir_y == bateau_y:
         print "Bravo ! Vous avez eu mon bateau !"
