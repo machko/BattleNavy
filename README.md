@@ -1,2 +1,1 @@
-# BattleNavy
-Mini jeu en python for fun.
+Script Post Install
