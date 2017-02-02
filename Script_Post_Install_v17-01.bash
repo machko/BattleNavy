@@ -211,7 +211,8 @@ case $CHOICE in
 		sudo apt-get -qq update
 		sudo apt-get install -fy
 		sudo apt-get install -qq smartmontools acpi stress
-		sudo lshw -short >> /home/TEMPO/Conf-Materiel.txt
+		sudo lshw >> /home/TEMPO/Conf-Materiel.txt
+		sudo lshw -short >> /home/TEMPO/Conf-Materiel-Rapide.txt
 		sudo smartctl -a /dev/sda >> /home/TEMPO/Rap-Smart-A.txt
 		sudo smartctl -a /dev/sdb >> /home/TEMPO/Rap-Smart-B.txt
 		sudo smartctl -a /dev/sdc >> /home/TEMPO/Rap-Smart-C.txt
