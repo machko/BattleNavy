@@ -30,9 +30,8 @@ OPTIONS=(00 "Custom Linux (Bientot)"
 	 06 "Utilitaire multimedia, studio"
          09 "Nettoyage du systeme."
 	 10 "Installation Utilitaire Tech"
-	 11 "Generation Rapport Machine"
-	 12 "Installation de Kodi"
-	 99 "UltimatCustom (ATTENTION! choix totalement automatique).")
+	 11 "Installation de Kodi"
+	 99 "Generation Rapport Machine")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -198,21 +197,7 @@ case $CHOICE in
 		sudo apt-get install -y gsmartcontrol gparted hardinfo acpi
 		rm -rf /home/TEMPO
 	    ;;	
-	11) 
-	    echo "Generation Rapport Machine"	
-		cd /home/TEMPO
-		sudo apt-get -qq update
-		sudo apt-get install -fy
-		sudo apt-get install -qq smartmontools acpi stress
-		sudo lshw -short >> Bureau/Conf-Materiel.txt
-		sudo smartctl -a /dev/sda >> Bureau/Rap-Smart-A.txt
-		sudo smartctl -a /dev/sdb >> Bureau/Rap-Smart-B.txt
-		sudo smartctl -a /dev/sdc >> Bureau/Rap-Smart-C.txt
-		acpi -V | grep Battery >> Bureau/Rapport-Bat.txt
-		sudo stress -c 8 -m 4 -v -t 3600 >> Bureau/StressMachine.txt
-		rm -rf /home/TEMPO
-	    ;;
-	12)
+	11)
 	    echo "Installation de Kodi"
 		cd /home/TEMPO
 		sudo apt-get install software-properties-common
@@ -220,27 +205,18 @@ case $CHOICE in
 		sudo apt-get update
 		sudo apt-get install kodi
 	    ;;
-	99)
-	    echo "UltimatCustom (ATTENTION! choix totalement automatique)."
+	99) 
+	    echo "Generation Rapport Machine"	
 		cd /home/TEMPO
 		sudo apt-get -qq update
 		sudo apt-get install -fy
-		sudo apt-get -qq upgrade
-		sudo apt-get -qq dist-upgrade
-		sudo setxkbmap fr
-		sudo add-apt-repository ppa:ubuntuhandbook1/dvdstyler
-		sudo sh -c 'echo "deb http://liveusb.info/multisystem/depot all main" >> /etc/apt/sources.list.d/multisystem.list'
-		wget -q http://liveusb.info/multisystem/depot/multisystem.asc -O- | sudo apt-key add -
-		sudo apt-get -qq update
-		sudo apt-get -qq install firefox firefox-locale-fr chromium-browser cairo-dock python python3 spyder spyder3 scratch gparted gsmartcontrol blender inkscape gimp mypaint openshot ffmpeg dvdstyler multisystem wine playonlinux amarok
-		#Suppression des résidus de logiciels supprimés
-		sudo [[ $(dpkg -l | grep ^rc) ]] && sudo dpkg -P $(dpkg -l | grep ^rc | tr -s " " | cut -d " " -f 2)
-		sudo apt-get autoclean
-		sudo apt-get clean
-		sudo apt-get autoremove
-		#Vidange des corbeilles
-		sudo rm -r -f ~/.local/share/Trash/*/*
-		find ~/ -name '*~' -print0 | xargs -0 rm
+		sudo apt-get install -qq smartmontools acpi stress
+		sudo lshw -short >> /home/TEMPO/Conf-Materiel.txt
+		sudo smartctl -a /dev/sda >> /home/TEMPO/Rap-Smart-A.txt
+		sudo smartctl -a /dev/sdb >> /home/TEMPO/Rap-Smart-B.txt
+		sudo smartctl -a /dev/sdc >> /home/TEMPO/Rap-Smart-C.txt
+		acpi -V | grep Battery >> /home/TEMPO/Rapport-Bat.txt
+		sudo stress -c 8 -m 4 -v -t 3600 >> /home/TEMPO/StressMachine.txt
 		rm -rf /home/TEMPO
 	    ;;
 esac
