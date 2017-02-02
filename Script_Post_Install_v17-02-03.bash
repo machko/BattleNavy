@@ -178,15 +178,15 @@ case $CHOICE in
 	09)
 	    echo "Nettoyage du systeme."
 		cd /home/TEMPO
-		#Suppression des résidus de logiciels supprimés
 		sudo apt-get autoclean
 		sudo apt-get clean
-		sudo apt-get autoremove
-		#Vidange des corbeilles
+		sudo apt-get autoremove -y
+		sudo apt-get check -y
+		sudo apt-get install -fy
 		sudo rm -r -f ~/.local/share/Trash/*/*
 		find ~/ -name '*~' -print0 | xargs -0 rm
+		rm -rf /home/TEMPO
 		echo "Appuyer la touche <Entrée> pour continuer..."
-		rm -Rf /home/TEMPO
 		read touche
 	    ;;
 	10)
@@ -196,6 +196,8 @@ case $CHOICE in
 		sudo apt-get install -fy
 		sudo apt-get install -y gsmartcontrol gparted hardinfo acpi
 		rm -rf /home/TEMPO
+		echo "Appuyer la touche <Entrée> pour continuer..."
+		read touche
 	    ;;	
 	11)
 	    echo "Installation de Kodi"
@@ -204,20 +206,25 @@ case $CHOICE in
 		sudo add-apt-repository ppa:team-xbmc/ppa
 		sudo apt-get update
 		sudo apt-get install kodi
+		echo "Appuyer la touche <Entrée> pour continuer..."
+		read touche
 	    ;;
 	99) 
 	    echo "Generation Rapport Machine"	
-		cd /home/TEMPO
+	    	mkdir /home/RAPPORT
+		cd /home/RAPPORT
 		sudo apt-get -qq update
 		sudo apt-get install -fy
 		sudo apt-get install -qq smartmontools acpi stress
-		sudo lshw >> /home/TEMPO/Conf-Materiel.txt
-		sudo lshw -short >> /home/TEMPO/Conf-Materiel-Rapide.txt
-		sudo smartctl -a /dev/sda >> /home/TEMPO/Rap-Smart-A.txt
-		sudo smartctl -a /dev/sdb >> /home/TEMPO/Rap-Smart-B.txt
-		sudo smartctl -a /dev/sdc >> /home/TEMPO/Rap-Smart-C.txt
-		acpi -V | grep Battery >> /home/TEMPO/Rapport-Bat.txt
-		sudo stress -c 8 -m 4 -v -t 3600 >> /home/TEMPO/StressMachine.txt
+		sudo lshw >> /home/RAPPORT/Conf-Materiel.txt
+		sudo lshw -short >> /home/RAPPORT/Conf-Materiel-Rapide.txt
+		sudo smartctl -a /dev/sda >> /home/RAPPORT/Rap-Smart-A.txt
+		sudo smartctl -a /dev/sdb >> /home/RAPPORT/Rap-Smart-B.txt
+		sudo smartctl -a /dev/sdc >> /home/RAPPORT/Rap-Smart-C.txt
+		acpi -V | grep Battery >> /home/RAPPORT/Rapport-Bat.txt
+		sudo stress -c 8 -m 4 -v -t 3600 >> /home/RAPPORT/StressMachine.txt
 		rm -rf /home/TEMPO
+		echo "Appuyer la touche <Entrée> pour continuer..."
+		read touche
 	    ;;
 esac
